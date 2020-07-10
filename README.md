@@ -1,2 +1,321 @@
-# Modeling Covid-19 Cumulative Case Growth in Bangladesh with Logistic Regression
- Modeling Covid-19 Cumulative Case Growth in Bangladesh with Logistic Regression
+
+# Prologue
+
+For this project we will use the logistic regression function to model the growth of confirmed Covid-19 case population growth in Bangladesh. Although the logistic regression function is commonly used in classification problems, we will be examining how it fares as a regression tool this time. Both cumulative case counts over time and logistic regression curves have a sigmoid shape and we shall try to fit a theoretically predicted curve over the actual cumulative case counts over time to reach certain conclusions about the case count growth, such as the time of peak daily new cases and the total cases that may be reached during this outbreak.
+
+# Import the necessary modules
+
+
+```python
+import pandas as pd
+import numpy as np
+from datetime import datetime,timedelta
+from sklearn.metrics import mean_squared_error
+from scipy.optimize import curve_fit
+from scipy.optimize import fsolve
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+# Import data and format as needed
+
+
+```python
+df = pd.read_csv('Corona-Cases.n-1.csv')
+df.tail()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Total cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>120</th>
+      <td>7-06-2020</td>
+      <td>165618</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>7-07-2020</td>
+      <td>168645</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>7-08-2020</td>
+      <td>172134</td>
+    </tr>
+    <tr>
+      <th>123</th>
+      <td>7-09-2020</td>
+      <td>175494</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>7-10-2020</td>
+      <td>178443</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+As you can see, the format of the date is 'month-day-year'. Let's specify the date column is datetime type. Let's also specify the formatting as %m-%d-%Y. And then, let's find the day when the first confirmed cases of Covid-19 were reported in Bangladesh.
+
+
+```python
+FMT = '%m-%d-%Y'
+df['Date'] = pd.to_datetime(df['Date'], format=FMT)
+```
+
+We have to initialize the first date of confirmed Covid-19 cases as the datetime variable start_date because we would need it later to calculate the peak.
+
+
+```python
+# Initialize the start date
+start_date = datetime.date(df.loc[0, 'Date'])
+print('Start date: ', start_date)
+```
+
+    Start date:  2020-03-08
+    
+
+Now, for the logistic regression function, we would need a timestep column instead of a date column in the dataframe. So we create a new dataframe called data where we drop the date column and use the index as the timestep column.
+
+
+```python
+# drop date column
+data = df['Total cases']
+
+# reset index and create a timestep
+data = data.reset_index(drop=False)
+
+# rename columns
+data.columns = ['Timestep', 'Total Cases']
+
+# check
+data.tail()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Timestep</th>
+      <th>Total Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>120</th>
+      <td>120</td>
+      <td>165618</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>121</td>
+      <td>168645</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>122</td>
+      <td>172134</td>
+    </tr>
+    <tr>
+      <th>123</th>
+      <td>123</td>
+      <td>175494</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>124</td>
+      <td>178443</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Defining the logistic regression function
+
+
+```python
+def logistic_model(x,a,b,c):
+    return c/(1+np.exp(-(x-b)/a))
+```
+
+In this formula, we have the variable x that is the time and three parameters: a, b, c.
+* a is a metric for the speed of infections
+* b is the day with the estimated maximum growth rate of confirmed Covid-19 cases
+* c is the maximum number the cumulative confirmed cases will reach by the end of the first outbreak here in Bangladesh
+
+The growth of cumulative cases follows a sigmoid shape like the logistic regression curve and hence, this may be a good way to model the growth of the confirmed Covid-19 case population over time. For the first outbreak at least. It makes sense because, for an outbreak, the rise in cumulative case counts is initially exponential. Then there is a point of inflection where the curve nearly becomes linear. We assume that this point of inflection is the time around which the daily new case numbers will peak. After that the curve eventually flattens out. 
+
+
+
+# Fit the logistic function and extrapolate
+
+
+```python
+# Initialize all the timesteps as x
+x = list(data.iloc[:,0])
+
+# Initialize all the Total Cases values as y
+y = list(data.iloc[:,1])
+
+# Fit the curve using sklearn's curve_fit method we initialize the parameter p0 with arbitrary values
+fit = curve_fit(logistic_model,x,y,p0=[2,100,20000])
+(a, b, c), cov = fit
+```
+
+
+```python
+# Print outputs
+print('Metric for speed of infections: ', a)
+print('Days from start when cumulative case counts will peak: ', b)
+print('Total cumulative cases that will be reached: ', c)
+```
+
+    Metric for speed of infections:  15.987219071306976
+    Days from start when cumulative case counts will peak:  106.35500755211694
+    Total cumulative cases that will be reached:  236049.22370484687
+    
+
+
+```python
+# Print errors for a, b, c
+errors = [np.sqrt(fit[1][i][i]) for i in [0,1,2]]
+print('Errors in a, b and c respectively:\n', errors)
+```
+
+    Errors in a, b and c respectively:
+     [0.10643670774815342, 0.29229150118571845, 1897.071452760767]
+    
+
+
+```python
+# estimated time of peak
+print('Estimated time of peak between', start_date + timedelta(days=(b-errors[1])), ' and ', start_date + timedelta(days=(b+errors[1])))
+
+# estimated total number of infections 
+print('Estimated total number of infections betweeen ', (c - errors[2]), ' and ', (c + errors[2]))
+```
+
+    Estimated time of peak between 2020-06-22  and  2020-06-22
+    Estimated total number of infections betweeen  234152.1522520861  and  237946.29515760764
+    
+
+To extrapolate the curve to the future, use the fsolve function from scipy.
+
+
+```python
+# Extrapolate
+sol = int(fsolve(lambda x : logistic_model(x,a,b,c) - int(c),b))
+```
+
+# Plot the graph
+
+
+```python
+pred_x = list(range(max(x),sol))
+plt.rcParams['figure.figsize'] = [7, 7]
+plt.rc('font', size=14)
+# Real data
+plt.scatter(x,y,label="Real data",color="red")
+# Predicted logistic curve
+plt.plot(x+pred_x, [logistic_model(i,fit[0][0],fit[0][1],fit[0][2]) for i in x+pred_x], label="Logistic model" )
+plt.legend()
+plt.xlabel("Days since 8th March 2020")
+plt.ylabel("Total number of infected people")
+plt.ylim((min(y)*0.9,c*1.1))
+plt.show()
+```
+
+
+![png](output_23_0.png)
+
+
+# Evaluate the MSE error
+
+Evaluating the mean squared error (MSE) is not very meaningful on its own until we can compare it with another predictive method. We can compare MSE of our regression with MSE from another method to check if our logistic regression model works better than the other predictive model. The model with the lower MSE performs better.
+
+
+
+
+
+```python
+y_pred_logistic = [logistic_model(i,fit[0][0],fit[0][1],fit[0][2])
+for i in x]
+
+print('Mean squared error: ', mean_squared_error(y,y_pred_logistic))
+```
+
+    Mean squared error:  903237.5115990428
+    
+
+# Epilogue
+
+We should be mindful of a few caveats:
+
+* These predictions will only be meaningful when the peak has actually been crossed definitively. 
+
+* Also, the reliability of the reported cases would also influence the dependability of the model. Developing countries, especially the South Asian countries have famously failed to report accurate disaster statisticcs in the past. 
+
+* Also, the testing numbers are low overall, especially in cities outside Dhaka where the daily new cases still have not peaked yet.
+
+* Since most of the cases reported were in Dhaka, the findings indicate that the peak in Dhaka may have been reached already.
+
+* If there is a second outbreak before the first outbreak subsides, the curve may not be sigmoid shaped and hence the results may not be as meaningful.
+
+* The total reported case numbers will possibly be greater than 238000, because the daily new cases is still rising in some cities other than Dhaka. It is not unsound to expect that the total reported case count for this first instance of Covid-19 outbreak could very well reach 300000 or more.
+
+# References
+
+The following articles have been the inspiration for this notebook:
+
+* [Covid-19 infection in Italy. Mathematical models and predictions](https://towardsdatascience.com/covid-19-infection-in-italy-mathematical-models-and-predictions-7784b4d7dd8d)
+
+* [Logistic growth modelling of COVID-19 proliferation in China and its international implications](https://www.sciencedirect.com/science/article/pii/S1201971220303039)
+
+* [Logistic Growth Model for COVID-19](https://www.wolframcloud.com/obj/covid-19/Published/Logistic-Growth-Model-for-COVID-19.nb)
+
