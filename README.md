@@ -1,7 +1,7 @@
 
 # Prologue
 
-For this project we will use the logistic regression function to model the growth of confirmed Covid-19 case population growth in Bangladesh. Although the logistic regression function is commonly used in classification problems, we will be examining how it fares as a regression tool this time. Both cumulative case counts over time and logistic regression curves have a sigmoid shape and we shall try to fit a theoretically predicted curve over the actual cumulative case counts over time to reach certain conclusions about the case count growth, such as the time of peak daily new cases and the total cases that may be reached during this outbreak.
+For this project we will use the logistic regression function to model the growth of confirmed Covid-19 case population growth in Bangladesh. The logistic regression function is commonly used in classification problems, and in this project we will be examining how it fares as a regression tool. Both cumulative case counts over time and logistic regression curves have a sigmoid shape and we shall try to fit a theoretically predicted curve over the actual cumulative case counts over time to reach certain conclusions about the case count growth, such as the time of peak daily new cases and the total cases that may be reached during this outbreak.
 
 # Import the necessary modules
 
@@ -17,11 +17,22 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 ```
 
+# Connect to Google Drive (where the data is kept)
+
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+
+    Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+    
+
 # Import data and format as needed
 
 
 ```python
-df = pd.read_csv('Corona-Cases.n-1.csv')
+df = pd.read_csv('/content/drive/My Drive/Corona-Cases.n-1.csv')
 df.tail()
 ```
 
@@ -52,11 +63,6 @@ df.tail()
   </thead>
   <tbody>
     <tr>
-      <th>120</th>
-      <td>7-06-2020</td>
-      <td>165618</td>
-    </tr>
-    <tr>
       <th>121</th>
       <td>7-07-2020</td>
       <td>168645</td>
@@ -75,6 +81,11 @@ df.tail()
       <th>124</th>
       <td>7-10-2020</td>
       <td>178443</td>
+    </tr>
+    <tr>
+      <th>125</th>
+      <td>7-11-2020</td>
+      <td>181129</td>
     </tr>
   </tbody>
 </table>
@@ -146,11 +157,6 @@ data.tail()
   </thead>
   <tbody>
     <tr>
-      <th>120</th>
-      <td>120</td>
-      <td>165618</td>
-    </tr>
-    <tr>
       <th>121</th>
       <td>121</td>
       <td>168645</td>
@@ -169,6 +175,11 @@ data.tail()
       <th>124</th>
       <td>124</td>
       <td>178443</td>
+    </tr>
+    <tr>
+      <th>125</th>
+      <td>125</td>
+      <td>181129</td>
     </tr>
   </tbody>
 </table>
@@ -216,9 +227,9 @@ print('Days from start when cumulative case counts will peak: ', b)
 print('Total cumulative cases that will be reached: ', c)
 ```
 
-    Metric for speed of infections:  15.987219071306976
-    Days from start when cumulative case counts will peak:  106.35500755211694
-    Total cumulative cases that will be reached:  236049.22370484687
+    Metric for speed of infections:  16.014123121491068
+    Days from start when cumulative case counts will peak:  106.45869659663947
+    Total cumulative cases that will be reached:  236784.81361031317
     
 
 
@@ -229,7 +240,7 @@ print('Errors in a, b and c respectively:\n', errors)
 ```
 
     Errors in a, b and c respectively:
-     [0.10643670774815342, 0.29229150118571845, 1897.071452760767]
+     [0.10361646729259785, 0.2778127848082606, 1787.7302815067274]
     
 
 
@@ -242,7 +253,7 @@ print('Estimated total number of infections betweeen ', (c - errors[2]), ' and '
 ```
 
     Estimated time of peak between 2020-06-22  and  2020-06-22
-    Estimated total number of infections betweeen  234152.1522520861  and  237946.29515760764
+    Estimated total number of infections betweeen  234997.08332880645  and  238572.5438918199
     
 
 To extrapolate the curve to the future, use the fsolve function from scipy.
@@ -272,7 +283,7 @@ plt.show()
 ```
 
 
-![png](output_23_0.png)
+![png](output_25_0.png)
 
 
 # Evaluate the MSE error
@@ -290,12 +301,12 @@ for i in x]
 print('Mean squared error: ', mean_squared_error(y,y_pred_logistic))
 ```
 
-    Mean squared error:  903237.5115990428
+    Mean squared error:  904749.4555313156
     
 
 # Epilogue
 
-We should be mindful of a few caveats:
+We should be mindful of some caveats:
 
 * These predictions will only be meaningful when the peak has actually been crossed definitively. 
 
@@ -309,9 +320,11 @@ We should be mindful of a few caveats:
 
 * The total reported case numbers will possibly be greater than 238000, because the daily new cases is still rising in some cities other than Dhaka. It is not unsound to expect that the total reported case count for this first instance of Covid-19 outbreak could very well reach 300000 or more.
 
+* The government recently hiked the prices of tests which may have led to increased unwillingness in suspected candidates to actually test for the disease, and that may have influenced the recent confirmed case counts.
+
 # References
 
-The following articles have been the inspiration for this notebook:
+Inspiration for theory and code from the following articles:
 
 * [Covid-19 infection in Italy. Mathematical models and predictions](https://towardsdatascience.com/covid-19-infection-in-italy-mathematical-models-and-predictions-7784b4d7dd8d)
 
