@@ -63,11 +63,6 @@ df.tail()
   </thead>
   <tbody>
     <tr>
-      <th>127</th>
-      <td>7-13-2020</td>
-      <td>186894</td>
-    </tr>
-    <tr>
       <th>128</th>
       <td>7-14-2020</td>
       <td>190057</td>
@@ -86,6 +81,11 @@ df.tail()
       <th>131</th>
       <td>7-17-2020</td>
       <td>199357</td>
+    </tr>
+    <tr>
+      <th>132</th>
+      <td>7-18-2020</td>
+      <td>202066</td>
     </tr>
   </tbody>
 </table>
@@ -157,11 +157,6 @@ data.tail()
   </thead>
   <tbody>
     <tr>
-      <th>127</th>
-      <td>127</td>
-      <td>186894</td>
-    </tr>
-    <tr>
       <th>128</th>
       <td>128</td>
       <td>190057</td>
@@ -180,6 +175,11 @@ data.tail()
       <th>131</th>
       <td>131</td>
       <td>199357</td>
+    </tr>
+    <tr>
+      <th>132</th>
+      <td>132</td>
+      <td>202066</td>
     </tr>
   </tbody>
 </table>
@@ -227,9 +227,9 @@ print('Days from start when cumulative case counts will peak: ', b)
 print('Total cumulative cases that will be reached: ', c)
 ```
 
-    Metric for speed of infections:  16.261895219019074
-    Days from start when cumulative case counts will peak:  107.33718062635585
-    Total cumulative cases that will be reached:  242843.04639239082
+    Metric for speed of infections:  16.316420148149366
+    Days from start when cumulative case counts will peak:  107.52011285399645
+    Total cumulative cases that will be reached:  244082.48926340725
     
 
 
@@ -240,7 +240,7 @@ print('Errors in a, b and c respectively:\n', errors)
 ```
 
     Errors in a, b and c respectively:
-     [0.09587726005485112, 0.2269164109726332, 1398.2032327752302]
+     [0.09591223436535969, 0.22296392727856204, 1365.4265989757657]
     
 
 
@@ -253,7 +253,7 @@ print('Estimated total number of infections betweeen ', (c - errors[2]), ' and '
 ```
 
     Estimated time of peak between 2020-06-23  and  2020-06-23
-    Estimated total number of infections betweeen  241444.8431596156  and  244241.24962516606
+    Estimated total number of infections betweeen  242717.0626644315  and  245447.915862383
     
 
 To extrapolate the curve to the future, use the fsolve function from scipy.
