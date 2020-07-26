@@ -63,11 +63,6 @@ df.tail()
   </thead>
   <tbody>
     <tr>
-      <th>135</th>
-      <td>7-21-2020</td>
-      <td>210510</td>
-    </tr>
-    <tr>
       <th>136</th>
       <td>7-22-2020</td>
       <td>213254</td>
@@ -86,6 +81,11 @@ df.tail()
       <th>139</th>
       <td>7-25-2020</td>
       <td>221178</td>
+    </tr>
+    <tr>
+      <th>140</th>
+      <td>7-26-2020</td>
+      <td>223453</td>
     </tr>
   </tbody>
 </table>
@@ -157,11 +157,6 @@ data.tail()
   </thead>
   <tbody>
     <tr>
-      <th>135</th>
-      <td>135</td>
-      <td>210510</td>
-    </tr>
-    <tr>
       <th>136</th>
       <td>136</td>
       <td>213254</td>
@@ -180,6 +175,11 @@ data.tail()
       <th>139</th>
       <td>139</td>
       <td>221178</td>
+    </tr>
+    <tr>
+      <th>140</th>
+      <td>140</td>
+      <td>223453</td>
     </tr>
   </tbody>
 </table>
@@ -227,9 +227,9 @@ print('Days from start when cumulative case counts will peak: ', b)
 print('Total cumulative cases that will be reached: ', c)
 ```
 
-    Metric for speed of infections:  16.76103671399762
-    Days from start when cumulative case counts will peak:  108.91553934285692
-    Total cumulative cases that will be reached:  253336.68385770003
+    Metric for speed of infections:  16.827304838929763
+    Days from start when cumulative case counts will peak:  109.11243433976801
+    Total cumulative cases that will be reached:  254618.9850006353
     
 
 
@@ -240,7 +240,7 @@ print('Errors in a, b and c respectively:\n', errors)
 ```
 
     Errors in a, b and c respectively:
-     [0.10437443718603687, 0.2173612433216009, 1278.9245248550317]
+     [0.10583488222097909, 0.21728666192941348, 1271.1935274168136]
     
 
 
@@ -253,7 +253,7 @@ print('Estimated total number of infections betweeen ', (c - errors[2]), ' and '
 ```
 
     Estimated time of peak between 2020-06-24  and  2020-06-25
-    Estimated total number of infections betweeen  252057.759332845  and  254615.60838255507
+    Estimated total number of infections betweeen  253347.79147321847  and  255890.1785280521
     
 
 To extrapolate the curve to the future, use the fsolve function from scipy.
@@ -301,7 +301,7 @@ for i in x]
 print('Mean squared error: ', mean_squared_error(y,y_pred_logistic))
 ```
 
-    Mean squared error:  1687380.613076629
+    Mean squared error:  1796068.5076298248
     
 
 # Epilogue
