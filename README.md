@@ -63,29 +63,29 @@ df.tail()
   </thead>
   <tbody>
     <tr>
-      <th>128</th>
-      <td>7-14-2020</td>
-      <td>190057</td>
+      <th>135</th>
+      <td>7-21-2020</td>
+      <td>210510</td>
     </tr>
     <tr>
-      <th>129</th>
-      <td>7-15-2020</td>
-      <td>193590</td>
+      <th>136</th>
+      <td>7-22-2020</td>
+      <td>213254</td>
     </tr>
     <tr>
-      <th>130</th>
-      <td>7-16-2020</td>
-      <td>196323</td>
+      <th>137</th>
+      <td>7-23-2020</td>
+      <td>216110</td>
     </tr>
     <tr>
-      <th>131</th>
-      <td>7-17-2020</td>
-      <td>199357</td>
+      <th>138</th>
+      <td>7-24-2020</td>
+      <td>218658</td>
     </tr>
     <tr>
-      <th>132</th>
-      <td>7-18-2020</td>
-      <td>202066</td>
+      <th>139</th>
+      <td>7-25-2020</td>
+      <td>221178</td>
     </tr>
   </tbody>
 </table>
@@ -157,29 +157,29 @@ data.tail()
   </thead>
   <tbody>
     <tr>
-      <th>128</th>
-      <td>128</td>
-      <td>190057</td>
+      <th>135</th>
+      <td>135</td>
+      <td>210510</td>
     </tr>
     <tr>
-      <th>129</th>
-      <td>129</td>
-      <td>193590</td>
+      <th>136</th>
+      <td>136</td>
+      <td>213254</td>
     </tr>
     <tr>
-      <th>130</th>
-      <td>130</td>
-      <td>196323</td>
+      <th>137</th>
+      <td>137</td>
+      <td>216110</td>
     </tr>
     <tr>
-      <th>131</th>
-      <td>131</td>
-      <td>199357</td>
+      <th>138</th>
+      <td>138</td>
+      <td>218658</td>
     </tr>
     <tr>
-      <th>132</th>
-      <td>132</td>
-      <td>202066</td>
+      <th>139</th>
+      <td>139</td>
+      <td>221178</td>
     </tr>
   </tbody>
 </table>
@@ -227,9 +227,9 @@ print('Days from start when cumulative case counts will peak: ', b)
 print('Total cumulative cases that will be reached: ', c)
 ```
 
-    Metric for speed of infections:  16.316420148149366
-    Days from start when cumulative case counts will peak:  107.52011285399645
-    Total cumulative cases that will be reached:  244082.48926340725
+    Metric for speed of infections:  16.76103671399762
+    Days from start when cumulative case counts will peak:  108.91553934285692
+    Total cumulative cases that will be reached:  253336.68385770003
     
 
 
@@ -240,7 +240,7 @@ print('Errors in a, b and c respectively:\n', errors)
 ```
 
     Errors in a, b and c respectively:
-     [0.09591223436535969, 0.22296392727856204, 1365.4265989757657]
+     [0.10437443718603687, 0.2173612433216009, 1278.9245248550317]
     
 
 
@@ -252,8 +252,8 @@ print('Estimated time of peak between', start_date + timedelta(days=(b-errors[1]
 print('Estimated total number of infections betweeen ', (c - errors[2]), ' and ', (c + errors[2]))
 ```
 
-    Estimated time of peak between 2020-06-23  and  2020-06-23
-    Estimated total number of infections betweeen  242717.0626644315  and  245447.915862383
+    Estimated time of peak between 2020-06-24  and  2020-06-25
+    Estimated total number of infections betweeen  252057.759332845  and  254615.60838255507
     
 
 To extrapolate the curve to the future, use the fsolve function from scipy.
@@ -301,7 +301,7 @@ for i in x]
 print('Mean squared error: ', mean_squared_error(y,y_pred_logistic))
 ```
 
-    Mean squared error:  1040576.8324953101
+    Mean squared error:  1687380.613076629
     
 
 # Epilogue
@@ -318,7 +318,7 @@ We should be mindful of some caveats:
 
 * If there is a second outbreak before the first outbreak subsides, the curve may not be sigmoid shaped and hence the results may not be as meaningful.
 
-* The total reported case numbers will possibly be greater than 238000, because the daily new cases is still rising in some cities other than Dhaka. It is not unsound to expect that the total reported case count for this first instance of Covid-19 outbreak could very well reach 300000 or more.
+* The total reported case numbers will possibly be greater than 260000, because the daily new cases is still rising in some cities other than Dhaka. It is not unsound to expect that the total reported case count for this first instance of Covid-19 outbreak could very well reach 300000 or more.
 
 * The government recently hiked the prices of tests which may have led to increased unwillingness in suspected candidates to actually test for the disease, and that may have influenced the recent confirmed case counts.
 
