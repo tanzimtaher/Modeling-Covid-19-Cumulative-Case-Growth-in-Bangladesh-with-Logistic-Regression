@@ -63,16 +63,6 @@ df.tail()
   </thead>
   <tbody>
     <tr>
-      <th>136</th>
-      <td>7-22-2020</td>
-      <td>213254</td>
-    </tr>
-    <tr>
-      <th>137</th>
-      <td>7-23-2020</td>
-      <td>216110</td>
-    </tr>
-    <tr>
       <th>138</th>
       <td>7-24-2020</td>
       <td>218658</td>
@@ -86,6 +76,16 @@ df.tail()
       <th>140</th>
       <td>7-26-2020</td>
       <td>223453</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>7-27-2020</td>
+      <td>226225</td>
+    </tr>
+    <tr>
+      <th>142</th>
+      <td>7-28-2020</td>
+      <td>229185</td>
     </tr>
   </tbody>
 </table>
@@ -157,16 +157,6 @@ data.tail()
   </thead>
   <tbody>
     <tr>
-      <th>136</th>
-      <td>136</td>
-      <td>213254</td>
-    </tr>
-    <tr>
-      <th>137</th>
-      <td>137</td>
-      <td>216110</td>
-    </tr>
-    <tr>
       <th>138</th>
       <td>138</td>
       <td>218658</td>
@@ -180,6 +170,16 @@ data.tail()
       <th>140</th>
       <td>140</td>
       <td>223453</td>
+    </tr>
+    <tr>
+      <th>141</th>
+      <td>141</td>
+      <td>226225</td>
+    </tr>
+    <tr>
+      <th>142</th>
+      <td>142</td>
+      <td>229185</td>
     </tr>
   </tbody>
 </table>
@@ -227,9 +227,9 @@ print('Days from start when cumulative case counts will peak: ', b)
 print('Total cumulative cases that will be reached: ', c)
 ```
 
-    Metric for speed of infections:  16.827304838929763
-    Days from start when cumulative case counts will peak:  109.11243433976801
-    Total cumulative cases that will be reached:  254618.9850006353
+    Metric for speed of infections:  16.978516374714104
+    Days from start when cumulative case counts will peak:  109.5528122589862
+    Total cumulative cases that will be reached:  257467.34873389627
     
 
 
@@ -240,7 +240,7 @@ print('Errors in a, b and c respectively:\n', errors)
 ```
 
     Errors in a, b and c respectively:
-     [0.10583488222097909, 0.21728666192941348, 1271.1935274168136]
+     [0.1109846084871684, 0.2220521949895737, 1285.6022375214159]
     
 
 
@@ -252,8 +252,8 @@ print('Estimated time of peak between', start_date + timedelta(days=(b-errors[1]
 print('Estimated total number of infections betweeen ', (c - errors[2]), ' and ', (c + errors[2]))
 ```
 
-    Estimated time of peak between 2020-06-24  and  2020-06-25
-    Estimated total number of infections betweeen  253347.79147321847  and  255890.1785280521
+    Estimated time of peak between 2020-06-25  and  2020-06-25
+    Estimated total number of infections betweeen  256181.74649637486  and  258752.95097141768
     
 
 To extrapolate the curve to the future, use the fsolve function from scipy.
@@ -301,7 +301,7 @@ for i in x]
 print('Mean squared error: ', mean_squared_error(y,y_pred_logistic))
 ```
 
-    Mean squared error:  1796068.5076298248
+    Mean squared error:  2107356.0796146584
     
 
 # Epilogue
