@@ -63,29 +63,29 @@ df.tail()
   </thead>
   <tbody>
     <tr>
-      <th>139</th>
-      <td>7-25-2020</td>
-      <td>221178</td>
-    </tr>
-    <tr>
-      <th>140</th>
-      <td>7-26-2020</td>
-      <td>223453</td>
-    </tr>
-    <tr>
-      <th>141</th>
-      <td>7-27-2020</td>
-      <td>226225</td>
-    </tr>
-    <tr>
-      <th>142</th>
-      <td>7-28-2020</td>
-      <td>229185</td>
-    </tr>
-    <tr>
       <th>143</th>
       <td>7-29-2020</td>
       <td>232194</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>7-30-2020</td>
+      <td>234889</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>7-31-2020</td>
+      <td>237661</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>8-1-2020</td>
+      <td>239860</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>8-2-2020</td>
+      <td>240746</td>
     </tr>
   </tbody>
 </table>
@@ -157,29 +157,29 @@ data.tail()
   </thead>
   <tbody>
     <tr>
-      <th>139</th>
-      <td>139</td>
-      <td>221178</td>
-    </tr>
-    <tr>
-      <th>140</th>
-      <td>140</td>
-      <td>223453</td>
-    </tr>
-    <tr>
-      <th>141</th>
-      <td>141</td>
-      <td>226225</td>
-    </tr>
-    <tr>
-      <th>142</th>
-      <td>142</td>
-      <td>229185</td>
-    </tr>
-    <tr>
       <th>143</th>
       <td>143</td>
       <td>232194</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>144</td>
+      <td>234889</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>145</td>
+      <td>237661</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>146</td>
+      <td>239860</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>147</td>
+      <td>240746</td>
     </tr>
   </tbody>
 </table>
@@ -227,9 +227,9 @@ print('Days from start when cumulative case counts will peak: ', b)
 print('Total cumulative cases that will be reached: ', c)
 ```
 
-    Metric for speed of infections:  17.066077211433676
-    Days from start when cumulative case counts will peak:  109.80334854464031
-    Total cumulative cases that will be reached:  259078.05819980783
+    Metric for speed of infections:  17.41386234974941
+    Days from start when cumulative case counts will peak:  110.7731800890406
+    Total cumulative cases that will be reached:  265257.7755190932
     
 
 
@@ -240,7 +240,7 @@ print('Errors in a, b and c respectively:\n', errors)
 ```
 
     Errors in a, b and c respectively:
-     [0.11501093332771888, 0.2275016965109656, 1311.1454288697835]
+     [0.12923467446546272, 0.24474862210706608, 1384.097103078659]
     
 
 
@@ -252,8 +252,8 @@ print('Estimated time of peak between', start_date + timedelta(days=(b-errors[1]
 print('Estimated total number of infections betweeen ', (c - errors[2]), ' and ', (c + errors[2]))
 ```
 
-    Estimated time of peak between 2020-06-25  and  2020-06-26
-    Estimated total number of infections betweeen  257766.91277093804  and  260389.2036286776
+    Estimated time of peak between 2020-06-26  and  2020-06-27
+    Estimated total number of infections betweeen  263873.67841601453  and  266641.8726221719
     
 
 To extrapolate the curve to the future, use the fsolve function from scipy.
@@ -301,7 +301,7 @@ for i in x]
 print('Mean squared error: ', mean_squared_error(y,y_pred_logistic))
 ```
 
-    Mean squared error:  2331977.1817117664
+    Mean squared error:  3298197.2412489704
     
 
 # Epilogue
